@@ -1,63 +1,68 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
-/*static int ft_strlen(const char str)
+#include "printf.h"
+static void ft_print(va_list ap, char c)
+{ if(c)
+{ 
+      if(c == 'c')
+            ft_putchar(va_arg(ap, char));
+      else if( c == 's')
+            ft_putstr(va_arg(ap, char *));
+     else if(c == 'p')
+          ft_print_adress(va_arg(ap, int));
+      else if(c == 'd' || c == 'i')
+            ft_putnbr(va_arg(ap, int));
+      else if(c == 'u')
+            ft_putnbr_uns(va_arg(ap, unsigned int));
+      else if(c == 'x')
+            ft_hex_lower(va_arg(ap, int));
+      else if(c == 'X')
+            ft_hex_upper(va_arg(ap, int));
+      else if(c == '%')
+            ft_putchar('%');
+}
+}
+int ft_printf(const char *format, ...)
 {
-    int i;
-    
-    i = 0;
-    while(str[i])
-        i++;
-    return(i);
-}*/
-void    ft_putstr(char *s)
-{
-    int i;
+      int i;
 
-    i = 0;
-    while(s[i])
-        write(1, &s[i++], 1);
-}
-static void    ft_putchar(char c)
- {
-        write(1, &c, 1);               
- }
- //int ft_printf(const char format, int args, ...)
- //{
-   // va_list
- //q
- //}
- int ft_print(char *format, ...)
- { 
-    char j;
-    char  *k;
-    int d;
-   va_list(ap);
-   va_start(ap, format);
-   int i = -1;
-   while(format[++i] == '%')
+      va_list ap;
+      va_start(ap, format);
+
+      i = 0;
+      while(format[i])
       {
-      if(format[i + 1] == 's')
-        { 
-         k = va_arg(ap, char *);
-         ft_putstr(k);  
-        }  
-       if(format[i + 1] == 'c') 
-        {
-          j = va_arg(ap, char);
-          ft_putchar(j);        
-        } 
-        if(format[i + 1] == 'd')
-          {
-            d = va_arg((ap), int);
-            ft_putchar(d);
-          }      
-      }    
-   va_end(ap);
+            if(format[i] == '%')
+            {
+                  i++;
+                  ft_print(ap, format[i]);
+                  //i++;           
+            }
+           else if (format[i] != '%')
+            {
+                  ft_putchar(format[i]);
+            }
+           /* else if(format[i] == '#' && format[i + 1] == '%')
+                  {
+                        ft_putchar(0);
+                      ft_putchar(x);
+                        i++;
+                        //ft_hex_upper(ap, format[i]);
+                  } */
+      i++;
+      }
+      va_end(ap);
 }
+#include <stdio.h>
 int main()
 {
-
-    ft_print("%d", 1);
-    return(0);
+  //int i =2000;
+  //int k = 2000;
+      int a = 11;
+    //char *p = &a;
+      //ft_printf("%x", -2000);
+      ft_printf("%d", ft_printf("%d", 1234));
+      //printf("%d", printf("%s", "hello world"));
+    //return(0);
 }

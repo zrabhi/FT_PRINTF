@@ -1,4 +1,7 @@
-void    ft_putchar(char c)
+#include "printf.h"
+
+void    ft_putchar(char c, int *count)
 {
-    write(1 &c, 1);
+    write(1, &c, 1);
+    retrun(1);
 }
